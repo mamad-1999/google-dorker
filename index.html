@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Dorker</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0 auto;
+        padding: 50px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #333;
+      }
+
+      .container {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #5c67f2;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .button {
+        width: 100%;
+        background-color: #5c67f2;
+        color: #fff;
+        border: none;
+        padding: 10px 40px;
+        margin-top: 10px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #4851c6;
+      }
+
+      .results {
+        margin-top: 20px;
+        text-align: left;
+        font-size: 0.9rem;
+        overflow-y: auto;
+        max-height: 300px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        visibility: hidden;
+      }
+
+      .results a {
+        color: #5c67f2;
+        text-decoration: none;
+      }
+
+      .results a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Google Dork Generator</h1>
+      <input
+        type="text"
+        id="domain"
+        placeholder="Enter domain (e.g., example.com)"
+      />
+      <button class="button" onclick="generateLinks()">Generate Links</button>
+      <div class="results" id="results"></div>
+    </div>
+
+    <script>
+      function generateLinks() {
+        const domain = document.getElementById("domain").value.trim();
+        if (!domain) {
+          alert("Please enter a valid domain!");
+          return;
+        }
+
+        const dorks = [
+          "site:" + domain + " inurl:login",
+          "site:" + domain + " intitle:admin",
+          "site:" + domain + " filetype:pdf",
+          "site:" + domain + " inurl:&",
+          "site:" + domain + ' "index of /"',
+          "site:" + domain + " ext:php | ext:html",
+          "site:" + domain + " confidential",
+          "site:" + domain + " inurl:wp-content",
+        ];
+
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = ""; // Clear old results
+        resultsDiv.style.visibility = "visible";
+
+        dorks.forEach((dork) => {
+          const link =
+            "https://www.google.com/search?q=" + encodeURIComponent(dork);
+          const linkElement = document.createElement("a");
+          linkElement.href = link;
+          linkElement.target = "_blank";
+          linkElement.textContent = dork;
+
+          resultsDiv.appendChild(linkElement);
+          resultsDiv.appendChild(document.createElement("br"));
+        });
+      }
+    </script>
+  </body>
+</html>
